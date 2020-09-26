@@ -1,6 +1,7 @@
 # STELLARSOL
 A celestial-object tracker in your terminal.
 
+![preview](https://github.com/Sugardust-io/STELLARSOL/blob/master/main/preview.PNG)
 
 **What is STELLARSOL?**
 
