@@ -24,7 +24,7 @@ STELLARSOL is relatively easy to use, but can be confusing for the first time. B
 
 * Run 'collector_curses.py' - (give 1 input so the screen refreshes and elements are drawn!)
 * Scroll up and down the menu with the arrow keys, select 'Enter New Object Data' with 'e'
-  * Input the name of our object, it's current RA and current Dec data.
+  * Input the name of your object, it's current RA and current Dec data.
   * Review your data and confirm if it is correct.
   
 * Scroll down to 'View Collected Data', select it with 'e'
