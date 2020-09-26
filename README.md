@@ -33,6 +33,8 @@ STELLARSOL is relatively easy to use, but can be confusing for the first time. B
   * Type 'Alpha Centari-C', hit enter.
   * You will be prompted to select a data entry, the last one will be your new data entry. Select an entry by simply typing it's number.
   * Your data is now on the screen, congratulations! Typing 'exit' will return control to the main menu.
+ 
+Important to note that **ALL** 1st index entries for **ALL** objects are their J2000-epoch coordinates. Any entries which denote an object's position on J2000 will be marked with a 'J2000' tag at the beginning of it's RA/Dec entry. The 1st entry should always be reserved for this though for clarity.
 
 --
 
