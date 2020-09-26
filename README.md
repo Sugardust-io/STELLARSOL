@@ -39,10 +39,10 @@ I have a number of planned updates to STELLARSOL, which will focus mainly on str
 
 The following are a number of planned updates, in no particular order, that I wish to make to improve STELLARSOL:
 
-- [ ]Improve user-control, fix some issues such as having to give in input at first run.
-- [ ]Options to manipulate objects from within the program (eg. add new objects, delete, etc.)
-- [ ]Include various object details along with it's positional-data.
-- [ ]Eventual real-time position approximation for objects with sufficient data.
+* Improve user-control, fix some issues such as having to give in input at first run.
+* Options to manipulate objects from within the program (eg. add new objects, delete, etc.)
+* Include various object details along with it's positional-data.
+* Eventual real-time position approximation for objects with sufficient data.
 
 
 That's all I have to say for now really about this project. I will be working on it from this time forward as I very much enjoy pouring time and love into it. I know it's not the best design-wise and likely code-wise, but STELLARSOL is really my first "complex" curses program that is more than a simple main-menu on a screen. You can read more details that I have included about STELLARSOL, including it's history and revisions and other F.A.Q. in the 'stellarsol.txt' document I have included in the repository.
