@@ -1,3 +1,4 @@
+import os
 import curses
 import json
 from datetime import datetime
@@ -125,10 +126,16 @@ def dataViewer(viewer_win, root):
     # Small sub-window for displaying short-info and user-input.
     info_win = viewer_win.derwin(3, viewer_w, viewer_h - 3, 0)
 
-    page_1 = ["Alpha Centari-A", "Alpha Centari-B", "Alpha Centari-C", "Bernard's Star",
-    "Luhman 16", "WISE 0855-0714", "Wolf 359"]
+    page_1 = ["Alpha Centari-C", "Alpha Centari-A", "Alpha Centari-B", "Barnard's Star",
+    "Luhman 16", "WISE 0855-0714", "Wolf 359", "Lalande 21185", "Sirius", 
+    "Luyten 726-8", "Ross 154", "Ross 248", "Epsilon Eridani", "Lacaille 9352", "Ross 128",
+    "EZ Aquarii", "61 Cygni", "Procyon", "Struve 2398", "Groombridge 34", "DX Cancri",
+    "Tau Ceti", "Epsilon Indi"]
 
-    pages = [page_1]
+    page_2 = ["TON 618", "Holmberg 15A", "IC 1101", "S5 0014+81", "SMSS J215728.21-360215.1",
+    "H1821+643", "NGC 6166", "NGC 4889", "Phoenix Cluster Central BH"]
+
+    pages = [page_1, page_2]
 
     selection_s = 0
 
@@ -138,7 +145,7 @@ def dataViewer(viewer_win, root):
             viewer_win.clear()
 
             for idx, element in enumerate(pages[int(selection_s) - 1]):
-                y = 1 + idx
+                y = 4 + idx
                 x = 2
 
                 viewer_win.addstr(y, x, element)
@@ -148,6 +155,13 @@ def dataViewer(viewer_win, root):
 
         viewer_win.border()
         info_win.border()
+
+        if selection_s == "1":
+            viewer_win.addstr(1, 2, "Nearest Stars to Earth")
+            viewer_win.addstr(2, 2, "(List decending from nearest)")
+        elif selection_s == "2":
+            viewer_win.addstr(1, 2, "Most-Massive Black Holes")
+            viewer_win.addstr(2, 2, "(List decending from most-massive)")
 
         page_string = "Scroll pages by typing their page number."
 
@@ -165,74 +179,76 @@ def dataViewer(viewer_win, root):
 
         selection_s = str(selection, 'utf-8')
 
-        if selection_s == "1":
-            drawLists(selection_s)
-        elif selection_s == "exit":
-            break 
-        elif selection_s not in page_1:
-            continue
-        elif selection_s in page_1:
-            # Selected-object the user wishes to view.
-            selected_obj = selection_s
+        if selection_s.isnumeric():
+            if int(selection_s) <= len(pages):
+                drawLists(selection_s)
+        else:
+            if selection_s == "exit":
+                break 
+            elif selection_s not in page_1:
+                continue
+            elif selection_s in page_1:
+                # Selected-object the user wishes to view.
+                selected_obj = selection_s
 
-            with open("data.json", "r") as json_file:
-                file_contents = json_file.read()
-            
-            obj_data = json.loads(file_contents)
+                with open("data.json", "r") as json_file:
+                    file_contents = json_file.read()
+                
+                obj_data = json.loads(file_contents)
 
-            json_file.close()
+                json_file.close()
 
-            viewer_win.clear()
-            viewer_win.border()
-            info_win.border()
-            info_win.addstr(1, 1, ">")
-            viewer_win.refresh()
-
-
-            # 'data.json' is read and the object has it's number of indexes counted.
-            # If the object has no collected data, refer user to text document for more info.
-            def indexPrompt():
-                if len(obj_data[selected_obj]) == 0:
-                    print()
-                    print("Object has no collected data.")
-                    print("Please see 'stellarsol.txt' for more information about this. Sorry!")
-                    exit()
-                else:
-                    viewer_win.addstr(1, 1, selected_obj+ " has " + str(len(obj_data[selected_obj])) + " entries.")
-
-
-            indexPrompt()
-            viewer_win.refresh()
-
-            # The user is prompted to select an entry until a valid entry is selected.
-            # Relevant data for the selected-object is spit out into the terminal.
-            while True:
-                viewer_win.addstr(viewer_h - 4, 1, "Select an entry to view")
+                viewer_win.clear()
+                viewer_win.border()
+                info_win.border()
+                info_win.addstr(1, 1, ">")
                 viewer_win.refresh()
 
-                curses.echo()
-                entry_selection = info_win.getstr(1, 3)
-                curses.noecho()
 
-                entry_selection = str(entry_selection, 'utf-8')
-
-                if entry_selection.isnumeric():
-                    if int(entry_selection) <= len(obj_data[selected_obj]):
-                        viewer_win.clear()
-
-                        viewer_win.addstr(1, 1, "Positional data for " + selected_obj + " on "
-                        + obj_data[selected_obj][int(entry_selection) - 1]["date"])
-
-                        viewer_win.addstr(3, 1, "RA/Dec: " + obj_data[selected_obj][int(entry_selection) - 1]["ra"]
-                        + " / " + obj_data[selected_obj][int(entry_selection) - 1]["dec"])
-                        break
+                # 'data.json' is read and the object has it's number of indexes counted.
+                # If the object has no collected data, refer user to text document for more info.
+                def indexPrompt():
+                    if len(obj_data[selected_obj]) == 0:
+                        print()
+                        print("Object has no collected data.")
+                        print("Please see 'stellarsol.txt' for more information about this. Sorry!")
+                        exit()
                     else:
+                        viewer_win.addstr(1, 1, selected_obj+ " has " + str(len(obj_data[selected_obj])) + " entries.")
+
+
+                indexPrompt()
+                viewer_win.refresh()
+
+                # The user is prompted to select an entry until a valid entry is selected.
+                # Relevant data for the selected-object is spit out into the terminal.
+                while True:
+                    viewer_win.addstr(viewer_h - 4, 1, "Select an entry to view")
+                    viewer_win.refresh()
+
+                    curses.echo()
+                    entry_selection = info_win.getstr(1, 3)
+                    curses.noecho()
+
+                    entry_selection = str(entry_selection, 'utf-8')
+
+                    if entry_selection.isnumeric():
+                        if int(entry_selection) <= len(obj_data[selected_obj]):
+                            viewer_win.clear()
+
+                            viewer_win.addstr(1, 1, "Positional data for " + selected_obj + " on "
+                            + obj_data[selected_obj][int(entry_selection) - 1]["date"])
+
+                            viewer_win.addstr(3, 1, "RA/Dec: " + obj_data[selected_obj][int(entry_selection) - 1]["ra"]
+                            + " / " + obj_data[selected_obj][int(entry_selection) - 1]["dec"])
+                            break
+                        else:
+                            indexPrompt()
+                            continue
+                    else:
+                        info_win.addstr(1, 3, " " * 20)
                         indexPrompt()
                         continue
-                else:
-                    info_win.addstr(1, 3, " " * 20)
-                    indexPrompt()
-                    continue
 
         viewer_win.refresh()
 
@@ -242,6 +258,19 @@ def dataViewer(viewer_win, root):
 
 def main(root):
     curses.curs_set(0)
+
+    # Check if terminal is the specified-size.
+    term_lines = os.get_terminal_size().lines
+    term_cols = os.get_terminal_size().columns
+
+    if term_lines != 32 or term_cols != 115:
+        print()
+        print("Please resize your terminal to 115 lines, 32 columns.")
+        print("Sorry for the inconvience, this will be resolved in the future.")
+        print("See 'stellarsol.txt' for more information about this.")
+        exit()
+    else:
+        pass
 
     h, w = root.getmaxyx()
 
