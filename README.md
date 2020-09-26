@@ -36,6 +36,7 @@ STELLARSOL is relatively easy to use, but can be confusing for the first time. B
 --
 
 **Planned updates**
+
 I have a number of planned updates to STELLARSOL, which will focus mainly on streamlining the process for users, as I am aware it's somewhat clunky at first. Once you get the hang of it, you can very easily navigate STELLARSOL very quickly, but making it more welcoming and easy to use for new users is my main focus.
 
 The following are a number of planned updates, in no particular order, that I wish to make to improve STELLARSOL:
