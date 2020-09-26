@@ -184,71 +184,72 @@ def dataViewer(viewer_win, root):
                 drawLists(selection_s)
         else:
             if selection_s == "exit":
-                break 
-            elif selection_s not in page_1:
-                continue
-            elif selection_s in page_1:
-                # Selected-object the user wishes to view.
-                selected_obj = selection_s
+                break
+            for alist in pages:
+                if selection_s in alist:
+                    # Selected-object the user wishes to view.
+                    selected_obj = selection_s
 
-                with open("data.json", "r") as json_file:
-                    file_contents = json_file.read()
-                
-                obj_data = json.loads(file_contents)
+                    with open("data.json", "r") as json_file:
+                        file_contents = json_file.read()
+                    
+                    obj_data = json.loads(file_contents)
 
-                json_file.close()
+                    json_file.close()
 
-                viewer_win.clear()
-                viewer_win.border()
-                info_win.border()
-                info_win.addstr(1, 1, ">")
-                viewer_win.refresh()
-
-
-                # 'data.json' is read and the object has it's number of indexes counted.
-                # If the object has no collected data, refer user to text document for more info.
-                def indexPrompt():
-                    if len(obj_data[selected_obj]) == 0:
-                        print()
-                        print("Object has no collected data.")
-                        print("Please see 'stellarsol.txt' for more information about this. Sorry!")
-                        exit()
-                    else:
-                        viewer_win.addstr(1, 1, selected_obj+ " has " + str(len(obj_data[selected_obj])) + " entries.")
-
-
-                indexPrompt()
-                viewer_win.refresh()
-
-                # The user is prompted to select an entry until a valid entry is selected.
-                # Relevant data for the selected-object is spit out into the terminal.
-                while True:
-                    viewer_win.addstr(viewer_h - 4, 1, "Select an entry to view")
+                    viewer_win.clear()
+                    viewer_win.border()
+                    info_win.border()
+                    info_win.addstr(1, 1, ">")
                     viewer_win.refresh()
 
-                    curses.echo()
-                    entry_selection = info_win.getstr(1, 3)
-                    curses.noecho()
 
-                    entry_selection = str(entry_selection, 'utf-8')
-
-                    if entry_selection.isnumeric():
-                        if int(entry_selection) <= len(obj_data[selected_obj]):
-                            viewer_win.clear()
-
-                            viewer_win.addstr(1, 1, "Positional data for " + selected_obj + " on "
-                            + obj_data[selected_obj][int(entry_selection) - 1]["date"])
-
-                            viewer_win.addstr(3, 1, "RA/Dec: " + obj_data[selected_obj][int(entry_selection) - 1]["ra"]
-                            + " / " + obj_data[selected_obj][int(entry_selection) - 1]["dec"])
-                            break
+                    # 'data.json' is read and the object has it's number of indexes counted.
+                    # If the object has no collected data, refer user to text document for more info.
+                    def indexPrompt():
+                        if len(obj_data[selected_obj]) == 0:
+                            print()
+                            print("Object has no collected data.")
+                            print("Please see 'stellarsol.txt' for more information about this. Sorry!")
+                            exit()
                         else:
+                            viewer_win.addstr(1, 1, selected_obj+ " has " + str(len(obj_data[selected_obj])) + " entries.")
+
+
+                    indexPrompt()
+                    viewer_win.refresh()
+
+                    # The user is prompted to select an entry until a valid entry is selected.
+                    # Relevant data for the selected-object is spit out into the terminal.
+                    while True:
+                        viewer_win.addstr(viewer_h - 4, 1, "Select an entry to view")
+                        viewer_win.refresh()
+
+                        curses.echo()
+                        entry_selection = info_win.getstr(1, 3)
+                        curses.noecho()
+
+                        entry_selection = str(entry_selection, 'utf-8')
+
+                        if entry_selection.isnumeric():
+                            if int(entry_selection) <= len(obj_data[selected_obj]):
+                                viewer_win.clear()
+
+                                viewer_win.addstr(1, 1, "Positional data for " + selected_obj + " on "
+                                + obj_data[selected_obj][int(entry_selection) - 1]["date"])
+
+                                viewer_win.addstr(3, 1, "RA/Dec: " + obj_data[selected_obj][int(entry_selection) - 1]["ra"]
+                                + " / " + obj_data[selected_obj][int(entry_selection) - 1]["dec"])
+                                break
+                            else:
+                                indexPrompt()
+                                continue
+                        else:
+                            info_win.addstr(1, 3, " " * 20)
                             indexPrompt()
                             continue
-                    else:
-                        info_win.addstr(1, 3, " " * 20)
-                        indexPrompt()
-                        continue
+                else:
+                    continue
 
         viewer_win.refresh()
 
