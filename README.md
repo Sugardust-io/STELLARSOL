@@ -33,7 +33,7 @@ STELLARSOL is relatively easy to use, but can be confusing for the first time. B
   * You will be prompted to select a data entry, the last one will be your new data entry. Select an entry by simply typing it's number.
   * Your data is now on the screen, congratulations! Typing 'exit' will return control to the main menu.
 
-
+--
 
 **Planned updates**
 I have a number of planned updates to STELLARSOL, which will focus mainly on streamlining the process for users, as I am aware it's somewhat clunky at first. Once you get the hang of it, you can very easily navigate STELLARSOL very quickly, but making it more welcoming and easy to use for new users is my main focus.
