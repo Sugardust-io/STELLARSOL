@@ -1,0 +1,26 @@
+---STELLARSOL---
+Welcome to a short passion-project of mine named STELLARSOL, a combination of the words 'Stellar' and 'Sol' (both referring to our home solar system, named Sol, and shorthand for 'Console'). It has taken up a fair amount of my time in planning, studying, and programming as of late, and even though it is a very small project compared to others by more-skilled programmers, I am still proud of what I have done and I am planning on working on it for the time to come.
+
+STELLARSOL started out as an idea to track the real-time positions of celestial-objects in the night-sky. A couple iterations of this existed, but were ultimately scrapped due to the process of tracking these objects in real-time proving to be way out of my abilities. I do not have any formal education in astronomy past high-school level, but it is a very deep passion of mine. As a result, I don't personally have the abilities to do the equations that make it possible to track objects in real-time, so that aspect of the project was put on the backburner.
+
+Recently, I picked up STELLARSOL once again, and set out with the goal of creating a simple program that would be used to track the current position of objects in the night-sky using the RA/Dec coordinate system that many astronomers use to track objects, particularly for finding them with telescopes. I've succeeded in this, and as of now, just after STELLARSOL's first version completion, it is able to take RA/Dec information from the user, save it, and display that info at anytime the user wishes to look back at it. Using this process, it should eventually be possible to approximate an object's real-time position in the night-sky, so the original idea for STELLARSOL is not completely out of the window.
+
+
+---HOW?---
+How does STELLARSOL work?
+
+Being a relatively new programmer (about just over a year's worth of experience as of 09/25/2020), the knowledge and tools available to me were a bit limited. The first hurdle I had to overcome was how to store a large, varying amount of data about any object in the program. Some people recommended SQLite and proper database tools, but I have settled on simply using JSON for the time being. It seems to work pretty well, and I doubt I will be needing a proper database tool to store anything more than a few fields-per-object.
+
+The process for using STELLARSOL is rather simple:
+- A user inputs data for any object that is currently recorded in STELLARSOL.
+- The data-viewer function allows all data entries for any object to be browsed at any time.
+
+Inevitably there will be bugs and things that I have overlooked at including in the program, and I will get to work fixing them as soon as possible. In all honestly, I don't really expect anyone other than myself to be using this program, but just in case anyone actually does, I want to make sure everything is as stable as possible.
+
+
+---"OBJECT HAS NO COLLECTED DATA"---
+This message is thrown into the console when an object someone is trying to view has not had any data collected for it yet. The only remedy for this is to collect data for the object either yourself, or someone else collects data for you. Once an object has at least 1 data-entry, you can view it and this error won't be thrown anymore for that object.
+
+
+---TERMINAL RESOLUTION---
+Due to the curses library being somewhat incomplete to this day for Python, ncurses' function that auto-resizes the terminal is unavailable to the Python version of curses. This makes it somewhat difficult to automatically resize the terminal to a specific size. To get around this,  I've simply implimented a check when running 'collector_curses.py' to check if the terminal is exactly 115 lines x 32 columns. This is the resolution I built STELLARSOL around and unfortunately didn't have the forethought while writing to take into account varying terminal sizes. Other resolutions other than 115x32 do work, but 115x32 is what I know for a fact the curses variant looks alright in without resulting in smooshed or jumbled characters. In the future this will be fixed, and it one of the first things I will be working on. Sorry for the inconvienence to those affected by this.
