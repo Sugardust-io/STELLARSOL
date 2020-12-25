@@ -52,4 +52,4 @@ The following are a number of planned updates, in no particular order, that I wi
 
 That's all I have to say for now really about this project. I will be working on it from this time forward as I very much enjoy pouring time and love into it. I know it's not the best design-wise and likely code-wise, but STELLARSOL is really my first "complex" curses program that is more than a simple main-menu on a screen. You can read more details that I have included about STELLARSOL, including it's history and revisions and other F.A.Q. in the 'stellarsol.txt' document I have included in the repository.
 
-If you wish to contact me directly about this project, I'm always free for contact on Discord: @Sugardust#8027
+If you wish to contact me directly about this project, I'm always free for contact on Discord: @Chaussettes#8027
